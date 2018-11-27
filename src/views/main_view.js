@@ -23,6 +23,7 @@ MainView.prototype.render = function (planet) {
   //   listItem.textContent = `${element.value} : ${element.key}`
   //   this.element.appendChild(listItem);
   // };
+  
 };
 
 module.exports = MainView;
