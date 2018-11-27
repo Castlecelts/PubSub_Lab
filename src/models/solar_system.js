@@ -1,11 +1,14 @@
-const SolarSystem = function(planets) {
-  this.planets = planets;
+const PubSub = require('../helpers/pub_sub.js')
+
+const SolarSystem = function() {
+  this.planets = null;
 };
 
 SolarSystem.prototype.bindEvents = function () {
   PubSub.subscribe('Planets:all-planets-ready', (event) => {
-    const allPlanetsInfo = event.detail;
+    this.planets = event.detail;
   });
+
   PubSub.subscribe('NavView:selected-planet-id', (event) => {
     const selectedName = event.detail;
     this.publishPlanetDetails(selectedName);
@@ -15,8 +18,11 @@ SolarSystem.prototype.bindEvents = function () {
 };
 
 SolarSystem.prototype.publishPlanetDetails = function (selectedName) {
-  const planetsArray = this.planets;
-  for
-};
+  for (const planet of this.planets){
+    if (planet.name === selectedName){
+      PubSub.publish('SolarSystem:selected-planet-details', planet);
+    };
+  }
+  };
 
-module.exports = SolarSystem;
+  module.exports = SolarSystem;
